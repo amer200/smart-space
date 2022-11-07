@@ -39,9 +39,9 @@ app.post('/admin/add-employee', upload.single('photo'));
 app.post('/admin/edit-employee/:id', upload.single('photo'));
 /********************************************************************************* */
 const adminRoutes = require('./routes/admin');
-const employeeRoutes = require('./routes/employee');
-app.use('/emp', employeeRoutes);
-app.use('/', adminRoutes);
+const mainRoutes = require('./routes/main');
+app.use('/', mainRoutes);
+app.use('/admin', adminRoutes);
 /********************************************************************************* */
 mongoose.connect(dbUrl)
     .then(resu => {
