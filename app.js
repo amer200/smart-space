@@ -35,8 +35,8 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage: storage });
-app.post('/admin/add-employee', upload.single('photo'));
-app.post('/admin/edit-employee/:id', upload.single('photo'));
+app.post('/admin/add-slide', upload.single('img'));
+app.post('/admin/about', upload.single('img'));
 /********************************************************************************* */
 const adminRoutes = require('./routes/admin');
 const mainRoutes = require('./routes/main');
