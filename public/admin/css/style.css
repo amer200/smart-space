@@ -14,3 +14,10 @@ body {
 li {
     cursor: default;
 }
+
+.py-3 {
+    background-image: url(/main/img/logo.png);
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
