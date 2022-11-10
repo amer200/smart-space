@@ -38,6 +38,7 @@ const upload = multer({ storage: storage });
 app.post('/admin/add-slide', upload.single('img'));
 app.post('/admin/about', upload.single('img'));
 app.post('/admin/add-serv', upload.single('img'));
+app.post('/admin/add-project', upload.single('img'));
 /********************************************************************************* */
 const adminRoutes = require('./routes/admin');
 const mainRoutes = require('./routes/main');

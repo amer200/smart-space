@@ -13,10 +13,31 @@
             <button type="submit" class="btn btn-dark">submit</button>
         </form>
         <hr>
+        <div class="col-12" style="margin-top: 10px;">
+            <h4>edit categs</h4>
+            <ul class="list-group">
+                <% categs.forEach(s=>{%>
+                    <li class="list-group-item"><span>
+                            <%=s.ar%>/ <%=s.en%>
+                        </span> <button type="button" class="btn btn-danger" onclick="removeCateg('<%=s._id%>')"
+                            style="float: right;">remove</button></li>
+                    <%})%>
+            </ul>
+            <hr>
+            <h4>edit projects</h4>
+            <ul class="list-group">
+                <% projects.forEach(s=>{%>
+                    <li class="list-group-item"><span>
+                            <%=s.name.ar%>/ <%=s.name.en%>
+                        </span> <button type="button" class="btn btn-danger" onclick="removeProject('<%=s._id%>')"
+                            style="float: right;">remove</button></li>
+                    <%})%>
+            </ul>
+        </div>
     </div>
     <div class="col-6">
         <h4>add project</h4>
-        <form action="/admin/add-project" method="post">
+        <form action="/admin/add-project" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="name" class="form-label">project name</label>
                 <input type="text" name="nameen" class="form-control" placeholder="project name">
@@ -34,9 +55,43 @@
                 <textarea name="descar" class="form-control" cols="30" rows="6"></textarea>
             </div>
             <div class="mb-3">
+                <select class="form-select" name="categ" aria-label="Disabled select example">
+                    <option selected>categgory</option>
+                    <% categs.forEach(c=>{%>
+                        <option value="<%=c._id%>">
+                            <%=c.ar%>/<%=c.en%>
+                        </option>
+                        <%})%>
+                </select>
+            </div>
+            <div class="mb-3">
                 <input type="file" name="img" class="form-control">
             </div>
             <button type="submit" class="btn btn-dark">submit</button>
         </form>
     </div>
 </div>
+<script>
+    const removeCateg = (id) => {
+        if (confirm('warn! you will dellete this slide?')) {
+            fetch(`/admin/remove-project-categ/${id}`)
+                .then(res => {
+                    return location.reload()
+                })
+                .catch(err => {
+                    alert(err)
+                })
+        }
+    }
+    const removeProject = (id) => {
+        if (confirm('warn! you will dellete this slide?')) {
+            fetch(`/admin/remove-project/${id}`)
+                .then(res => {
+                    return location.reload()
+                })
+                .catch(err => {
+                    alert(err)
+                })
+        }
+    }
+</script>

@@ -3,17 +3,22 @@ const About = require('../models/about');
 const Serv = require('../models/serv');
 const Project = require('../models/project');
 const Projectcateg = require('../models/projectcateg');
+const Faq = require('../models/faq');
 const fs = require('fs');
 exports.getMainPage = async (req, res) => {
     const slides = await Slider.find();
     const about = await About.findOne();
     const servs = await Serv.find();
     const projects = await Project.find();
+    const projectcateg = await Projectcateg.find();
+    const faq = await Faq.find();
     res.render('admin/index', {
         slides: slides,
         about: about,
         servs: servs,
-        projects: projects
+        projects: projects,
+        categs: projectcateg,
+        faqs: faq
     });
 }
 exports.addSlider = (req, res) => {
@@ -70,7 +75,7 @@ exports.about = (req, res) => {
                             console.log(err)
                         }
                     })
-                    a.img = req.file.path;
+                    a.img = req.file.path.split('public')[1];
                 }
                 return a.save()
             } else {
@@ -134,11 +139,21 @@ exports.addProject = (req, res) => {
         ar: req.body.descar,
         en: req.body.descen
     };
-    const categ = {
-        ar: req.body.categar,
-        en: req.body.categen
-    }
+    const categ = req.body.categ;
     const img = req.file.path.split('public')[1];
+    const project = new Project({
+        name: name,
+        desc: desc,
+        categ: categ,
+        img: img
+    })
+    project.save()
+        .then(s => {
+            res.redirect('/admin');
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }
 exports.addProjectCateg = (req, res) => {
     const ar = req.body.ar;
@@ -150,6 +165,66 @@ exports.addProjectCateg = (req, res) => {
     categ.save()
         .then(c => {
             res.redirect('/admin');
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+exports.removeProjectCateg = (req, res) => {
+    const id = req.params.id;
+    Projectcateg.findByIdAndRemove(id)
+        .then(p => {
+            res.send({
+                msg: 'ok'
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+exports.removeProject = (req, res) => {
+    const id = req.params.id;
+    Project.findByIdAndRemove(id)
+        .then(p => {
+            fs.unlink(`public${p.img}`, (err) => {
+                console.log(err)
+            })
+            res.send({
+                msg: 'ok'
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+exports.addFaq = (req, res) => {
+    const qu = {
+        ar: req.body.qar,
+        en: req.body.qen
+    };
+    const aw = {
+        ar: req.body.war,
+        en: req.body.wen
+    }
+    const faq = new Faq({
+        q: qu,
+        w: aw
+    })
+    faq.save()
+        .then(f => {
+            res.redirect('/admin')
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+exports.removeFaq = (req, res) => {
+    const id = req.params.id;
+    Faq.findByIdAndRemove(id)
+        .then(p => {
+            res.send({
+                msg: 'ok'
+            })
         })
         .catch(err => {
             console.log(err)
