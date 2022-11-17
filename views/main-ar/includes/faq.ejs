@@ -1,0 +1,52 @@
+<!-- FAQs Start -->
+<div class="faqs">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2>اسئلة شائعة</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div id="accordion-1">
+                    <%if(faqs1[0]){%>
+                        <%for(let i=0; i< faqs1.length; i++){%>
+                            <div class="card wow fadeInLeft" data-wow-delay="0.<%=i%>s">
+                                <div class="card-header">
+                                    <a class="card-link collapsed" data-toggle="collapse" href="#collapse<%=i%>1">
+                                        <%=faqs1[i].q.ar%>
+                                    </a>
+                                </div>
+                                <div id="collapse<%=i%>1" class="collapse" data-parent="#accordion-1">
+                                    <div class="card-body">
+                                        <%=faqs1[i].w.ar%>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                                <%}%>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="accordion-2">
+                    <%if(faqs2[0]){%>
+                        <%for(let i=0; i< faqs2.length; i++){%>
+                            <div class="card wow fadeInRight" data-wow-delay="0.<%=i%>s">
+                                <div class="card-header">
+                                    <a class="card-link collapsed" data-toggle="collapse" href="#collapse<%=i%>2">
+                                        <%=faqs2[i].q.ar%>
+                                    </a>
+                                </div>
+                                <div id="collapse<%=i%>2" class="collapse" data-parent="#accordion-2">
+                                    <div class="card-body">
+                                        <%=faqs2[i].w.ar%>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                                <%}%>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FAQs End -->

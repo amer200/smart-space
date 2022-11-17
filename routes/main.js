@@ -7,4 +7,5 @@ route.get('/about', mainController.getAboutPage);
 route.get('/service', mainController.getServicesPage);
 route.get('/portfolio', mainController.getProjectsPage);
 route.get('/contact', mainController.getCntactPage);
+route.get('/lang/:l', mainController.changeLang);
 module.exports = route;

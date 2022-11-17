@@ -1,0 +1,64 @@
+<%-include('includes/head')%>
+    <!-- Page Header Start -->
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>مشاريعنا</h2>
+                </div>
+                <div class="col-12">
+                    <a href="/">الرئيسية</a>
+                    <a href="/portfolio">مشاريعنا</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Portfolio Start -->
+    <div class="portfolio" style="margin-bottom: 20px;">
+        <div class="container">
+            <div class="section-header text-center">
+                <p>مشاريعنا</p>
+                <h2>تصفح مشاريعنا</h2>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <ul id="portfolio-flters">
+                        <li data-filter="*" class="filter-active">كل المشاريع</li>
+                        <%categs.forEach(c=>{%>
+                            <li data-filter=".class<%=c._id%>">
+                                <%=c.ar%>
+                            </li>
+                            <%})%>
+                    </ul>
+                </div>
+            </div>
+            <div class="row portfolio-container">
+                <% projects.forEach(p=>{%>
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item class<%=p.categ._id%> wow fadeInUp"
+                        data-wow-delay="0.1s">
+                        <div class="portfolio-warp">
+                            <div class="portfolio-img">
+                                <img src="<%=p.img%>" alt="Image">
+                                <div class="portfolio-overlay">
+                                    <p>
+                                        <%=p.desc.ar%>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>
+                                    <%=p.name.ar%>
+                                </h3>
+                                <a class="btn" href="<%=p.img%>" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                    <%})%>
+            </div>
+        </div>
+    </div>
+    <!-- Portfolio End -->
+    <%-include('includes/footer')%>

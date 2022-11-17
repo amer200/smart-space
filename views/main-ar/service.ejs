@@ -1,0 +1,54 @@
+<%- include('includes/head')%>
+    <!-- Page Header Start -->
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>خدماتنا</h2>
+                </div>
+                <div class="col-12">
+                    <a href="/">الرئيسية</a>
+                    <a href="/service">خدماتنا</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Service Start -->
+    <div class="service">
+        <div class="container">
+            <div class="section-header text-center">
+                <p>خدماتنا</p>
+                <h2>نحن نقدم</h2>
+            </div>
+            <div class="row">
+                <%for(let i=0; i< servs.length; i++){%>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.<%=i%>s">
+                        <div class="service-item">
+                            <div class="service-img">
+                                <img src="<%=servs[i].img%>" alt="Image">
+                                <div class="service-overlay">
+                                    <p>
+                                        <%=servs[i].contetn.ar%>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="service-text">
+                                <h3>
+                                    <%=servs[i].title.ar%>
+                                </h3>
+                                <a class="btn" href="<%=servs[i].img%>" data-lightbox="service">+</a>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+
+    <%- include('includes/faq') %>
+        <%- include('includes/footer')%>

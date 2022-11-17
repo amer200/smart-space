@@ -16,9 +16,8 @@ const store = new MongoDBStore({
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
-    store: store,
-    lang: 'ar'
+    saveUninitialized: true,
+    store: store
 }))
 /********************************************************************************* */
 app.use(express.static('public'));

@@ -12,13 +12,23 @@ exports.getMainPage = async (req, res) => {
     const middleIndex = Math.ceil(faq.length / 2);
     const faqs1 = faq.splice(0, middleIndex);
     const faqs2 = faq.splice(-middleIndex);
-    res.render('main/index', {
-        slides: slides,
-        about: about,
-        servs: servs,
-        faqs1: faqs1,
-        faqs2: faqs2
-    });
+    if (req.session.lang == 'ar') {
+        res.render('main-ar/index', {
+            slides: slides,
+            about: about,
+            servs: servs,
+            faqs1: faqs1,
+            faqs2: faqs2
+        });
+    } else {
+        res.render('main/index', {
+            slides: slides,
+            about: about,
+            servs: servs,
+            faqs1: faqs1,
+            faqs2: faqs2
+        });
+    }
 }
 
 exports.getServicesPage = async (req, res) => {
@@ -27,11 +37,19 @@ exports.getServicesPage = async (req, res) => {
     const middleIndex = Math.ceil(faq.length / 2);
     const faqs1 = faq.splice(0, middleIndex);
     const faqs2 = faq.splice(-middleIndex);
-    res.render('main/service', {
-        servs: servs,
-        faqs1: faqs1,
-        faqs2: faqs2
-    })
+    if (req.session.lang == 'ar') {
+        res.render('main-ar/service', {
+            servs: servs,
+            faqs1: faqs1,
+            faqs2: faqs2
+        })
+    } else {
+        res.render('main/service', {
+            servs: servs,
+            faqs1: faqs1,
+            faqs2: faqs2
+        })
+    }
 }
 exports.getAboutPage = async (req, res) => {
     const about = await About.findOne();
@@ -39,20 +57,44 @@ exports.getAboutPage = async (req, res) => {
     const middleIndex = Math.ceil(faq.length / 2);
     const faqs1 = faq.splice(0, middleIndex);
     const faqs2 = faq.splice(-middleIndex);
-    res.render('main/about', {
-        about: about,
-        faqs1: faqs1,
-        faqs2: faqs2
-    })
+    if (req.session.lang == 'ar') {
+        res.render('main-ar/about', {
+            about: about,
+            faqs1: faqs1,
+            faqs2: faqs2
+        })
+    } else {
+        res.render('main/about', {
+            about: about,
+            faqs1: faqs1,
+            faqs2: faqs2
+        })
+    }
 }
 exports.getProjectsPage = async (req, res) => {
     const projects = await Project.find().populate('categ');
     const projectcateg = await Projectcateg.find();
-    res.render('main/portfolio', {
-        projects: projects,
-        categs: projectcateg
-    })
+    if (req.session.lang == 'ar') {
+        res.render('main-ar/portfolio', {
+            projects: projects,
+            categs: projectcateg
+        })
+    } else {
+        res.render('main/portfolio', {
+            projects: projects,
+            categs: projectcateg
+        })
+    }
 }
 exports.getCntactPage = (req, res) => {
-    res.render('main/contact')
+    if (req.session.lang == 'ar') {
+        res.render('main-ar/contact')
+    } else {
+        res.render('main/contact')
+    }
+}
+exports.changeLang = (req, res) => {
+    const l = req.params.l;
+    req.session.lang = l;
+    res.redirect('/')
 }
