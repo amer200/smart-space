@@ -95,7 +95,40 @@ exports.getCntactPage = (req, res) => {
     }
 }
 exports.postContact = (req, res) => {
-    console.log(req.body)
+    const name = req.body.name;
+    const mail = req.body.mail;
+    const subj = req.body.subj;
+    const msg = req.body.msg;
+    async function main() {
+        let testAccount = await nodemailer.createTestAccount();
+
+        let transporter = nodemailer.createTransport({
+            host: "smtp.ethereal.email",
+            port: 587,
+            secure: false, auth: {
+                user: testAccount.user,
+                pass: testAccount.pass,
+            },
+        });
+
+        let info = await transporter.sendMail({
+            from: `from: ${name}, ${mail}`,
+            to: "info@smartspace.live",
+            subject: subj,
+            text: msg,
+        });
+
+        // console.log("Message sent: %s", info.messageId);
+
+        // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    }
+    main()
+        .then(m => {
+            res.redirect('/')
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }
 exports.changeLang = (req, res) => {
     const l = req.params.l;
