@@ -4,6 +4,7 @@ const Serv = require('../models/serv');
 const Projectcateg = require('../models/projectcateg');
 const Project = require('../models/project');
 const Faq = require('../models/faq');
+const nodemailer = require("nodemailer");
 exports.getMainPage = async (req, res) => {
     const slides = await Slider.find();
     const about = await About.findOne();
@@ -92,6 +93,9 @@ exports.getCntactPage = (req, res) => {
     } else {
         res.render('main/contact')
     }
+}
+exports.postContact = (req, res) => {
+    console.log(req.body)
 }
 exports.changeLang = (req, res) => {
     const l = req.params.l;

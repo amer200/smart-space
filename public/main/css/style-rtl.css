@@ -1,0 +1,5 @@
+/* about us page */
+.page-header a::after {
+    right: 0px;
+    left: -7px;
+}
