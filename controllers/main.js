@@ -100,15 +100,22 @@ exports.postContact = (req, res) => {
     const subj = req.body.subj;
     const msg = req.body.msg;
     async function main() {
-        let testAccount = await nodemailer.createTestAccount();
+        // let testAccount = await nodemailer.createTestAccount();
 
         let transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
-            port: 587,
-            secure: false, auth: {
-                user: testAccount.user,
-                pass: testAccount.pass,
+            host: "smtpout.secureserver.net",
+            secure: true,
+            secureConnection: false, // TLS requires secureConnection to be false
+            tls: {
+                ciphers: 'SSLv3'
             },
+            requireTLS: true,
+            port: 465,
+            debug: true,
+            auth: {
+                user: process.env.MAILUSERNAME,
+                pass: process.env.MAILPASSWORD
+            }
         });
 
         let info = await transporter.sendMail({
